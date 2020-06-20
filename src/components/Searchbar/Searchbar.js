@@ -21,6 +21,8 @@ class Searchbar extends Component {
     const { value } = this.state;
 
     this.props.onSubmit(value);
+
+    this.setState({ value: "" });
   };
 
   render() {

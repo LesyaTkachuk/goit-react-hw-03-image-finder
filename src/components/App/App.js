@@ -8,6 +8,7 @@ import Button from "../Button/Button";
 import Modal from "../Modal/Modal";
 
 import picturesApi from "../../api/picturesApi";
+import scroll from "../../utils/scroll";
 
 import styles from "./App.module.scss";
 import "react-toastify/dist/ReactToastify.css";
@@ -25,6 +26,9 @@ class App extends Component {
   componentDidUpdate(prevProps, prevState) {
     const prevQuery = prevState.query;
     const { query } = this.state;
+
+    console.log(prevQuery);
+    console.log(query);
 
     if (prevQuery !== query) {
       this.fetchImages();
@@ -58,21 +62,17 @@ class App extends Component {
       .catch((error) => this.showNotif(`Woops...${error.message}`))
       .finally(() => {
         this.setState({ isLoading: false });
-        window.scrollTo({
-          top: document.documentElement.scrollHeight,
-          behavior: "smooth",
-        });
+        scroll();
+        // window.scrollTo({
+        //   top: document.documentElement.scrollHeight,
+        //   behavior: "smooth",
+        // });
       });
   };
 
   showNotif = (message) => {
     this.setState({ showNotif: true });
-    toast.dark(`🦄 ${message}`, {
-      position: "top-center",
-      autoClose: 5000,
-      closeOnClick: true,
-      pauseOnHover: true,
-    });
+    toast.dark(`🦄 ${message}`);
   };
 
   showModal = (imageURL) => {
@@ -106,7 +106,9 @@ class App extends Component {
           <Button onClick={this.fetchImages} />
         )}
         {imageUrlForModal && (
-          <Modal imageURL={imageUrlForModal} onClose={this.closeModal} />
+          <Modal onClose={this.closeModal}>
+            <img className={styles.img} src={imageUrlForModal} alt="picture from the gallery" />
+          </Modal>
         )}
 
         <ToastContainer

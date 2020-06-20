@@ -25,9 +25,7 @@ class Modal extends Component {
   render() {
     return (
       <div className={styles.overlay}>
-        <div className={styles.modal}>
-          <img src={this.props.imageURL} alt="" />
-        </div>
+        <div className={styles.modal}>{this.props.children}</div>
       </div>
     );
   }
