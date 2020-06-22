@@ -27,9 +27,6 @@ class App extends Component {
     const prevQuery = prevState.query;
     const { query } = this.state;
 
-    console.log(prevQuery);
-    console.log(query);
-
     if (prevQuery !== query) {
       this.fetchImages();
     }
@@ -107,7 +104,11 @@ class App extends Component {
         )}
         {imageUrlForModal && (
           <Modal onClose={this.closeModal}>
-            <img className={styles.img} src={imageUrlForModal} alt="picture from the gallery" />
+            <img
+              className={styles.img}
+              src={imageUrlForModal}
+              alt="picture from the gallery"
+            />
           </Modal>
         )}
 
